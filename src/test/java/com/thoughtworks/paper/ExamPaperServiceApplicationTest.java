@@ -13,7 +13,7 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootTest
 @AutoConfigureStubRunner(ids = {"com.thoughtworks:cdct-provider-stubs:0.0.1-SNAPSHOT:stubs:8100"},
         stubsMode = StubRunnerProperties.StubsMode.LOCAL)
-public class ContractConsumerApplicationTest {
+public class ExamPaperServiceApplicationTest {
 
     @Test
     public void get_person_from_service_contract() {
