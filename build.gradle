@@ -45,6 +45,7 @@ dependencies {
 }
 
 contracts{
+	testFramework = org.springframework.cloud.contract.verifier.config.TestFramework.JUNIT5
 	failOnNoContracts = false
 }
 
