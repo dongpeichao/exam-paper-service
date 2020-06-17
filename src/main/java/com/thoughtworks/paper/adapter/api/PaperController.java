@@ -19,18 +19,9 @@ public class PaperController {
     @PostMapping
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
-    public PaperDTO assemble(@RequestBody final AssemblePaperCommand command)
+    public PaperDTO assemble(@RequestBody AssemblePaperCommand command)
             throws IllegalQuizzesCountException {
         PaperId paperId = paperApplicationService.assemblePaper(command);
         return PaperDTO.from(paperId.toString());
-    }
-
-    @PutMapping("/{paperId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public PaperDTO reassemble(@PathVariable final String paperId,
-                               @RequestBody final AssemblePaperCommand command)
-            throws IllegalQuizzesCountException {
-        PaperId newPaperId = paperApplicationService.reassemblePaper(paperId, command);
-        return PaperDTO.from(newPaperId.toString());
     }
 }

@@ -30,17 +30,6 @@ public class Paper {
                 .teacherId(teacherId)
                 .build();
     }
-
-    public Paper reassemble(List<BlankQuiz> blankQuizzes,
-                            String teacherId) throws IllegalQuizzesCountException {
-        validateQuizzes(blankQuizzes);
-        return Paper.builder()
-                .id(id)
-                .blankQuizzes(blankQuizzes)
-                .teacherId(teacherId)
-                .build();
-    }
-
     private static void validateQuizzes(final List<BlankQuiz> blankQuizzes) throws IllegalQuizzesCountException {
         if (blankQuizzes.size() > 20 || blankQuizzes.size() < 5) {
             throw new IllegalQuizzesCountException(blankQuizzes.size());

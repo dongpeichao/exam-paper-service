@@ -1,7 +1,7 @@
 package com.thoughtworks.paper.adapter.repository;
 
+import com.thoughtworks.paper.adapter.repository.entity.PaperEntity;
 import com.thoughtworks.paper.domain.model.paper.Paper;
-import com.thoughtworks.paper.domain.model.paper.PaperId;
 import com.thoughtworks.paper.domain.model.paper.PaperRepository;
 import org.springframework.stereotype.Repository;
 
@@ -16,10 +16,7 @@ public class PaperRepositoryImpl implements PaperRepository {
 
     @Override
     public void save(Paper paper) {
-    }
-
-    @Override
-    public Paper find(PaperId id) {
-        return null;
+        jpaPaperRepository.save(PaperEntity.fromModel(paper));
     }
 }
+

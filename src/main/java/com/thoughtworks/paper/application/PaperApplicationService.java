@@ -11,11 +11,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor
 public class PaperApplicationService {
     private final PaperRepository paperRepository;
 
-    public PaperId assemblePaper(final AssemblePaperCommand command)
+    public PaperApplicationService(PaperRepository paperRepository) {
+        this.paperRepository = paperRepository;
+    }
+
+    public PaperId assemblePaper(AssemblePaperCommand command)
             throws IllegalQuizzesCountException {
         List<Paper.BlankQuiz> blankQuizzes = blankQuizFrom(command);
         String teacherId = command.getTeacherId();
@@ -24,17 +27,7 @@ public class PaperApplicationService {
         return paper.getId();
     }
 
-    public PaperId reassemblePaper(final String paperId, final AssemblePaperCommand command)
-            throws IllegalQuizzesCountException {
-        List<Paper.BlankQuiz> blankQuizzes = blankQuizFrom(command);
-        String teacherId = command.getTeacherId();
-        Paper paper = paperRepository.find(new PaperId(paperId));
-        Paper newPaper = paper.reassemble(blankQuizzes, teacherId);
-        paperRepository.save(newPaper);
-        return newPaper.getId();
-    }
-
-    private List<Paper.BlankQuiz> blankQuizFrom(final AssemblePaperCommand command) {
+    private List<Paper.BlankQuiz> blankQuizFrom(AssemblePaperCommand command) {
         return command.getQuizzes().stream()
                 .map(quiz -> new Paper.BlankQuiz(quiz.getQuizId(), quiz.getScore()))
                 .collect(Collectors.toList());
