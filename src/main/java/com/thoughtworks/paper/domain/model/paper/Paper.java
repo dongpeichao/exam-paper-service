@@ -2,10 +2,7 @@ package com.thoughtworks.paper.domain.model.paper;
 
 import com.thoughtworks.paper.common.ddd.annotation.AggregateRoot;
 import com.thoughtworks.paper.common.ddd.annotation.ValueObject;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import java.util.List;
 
@@ -40,6 +37,7 @@ public class Paper {
     @Data
     @Builder
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class BlankQuiz {
         private String id;
         private Integer score;

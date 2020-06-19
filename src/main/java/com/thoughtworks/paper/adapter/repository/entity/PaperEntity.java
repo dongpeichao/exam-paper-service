@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.List;
+import java.util.Arrays;
 
 
 @Data
@@ -28,11 +28,16 @@ public class PaperEntity {
     private String teacherId;
 
     public Paper toModel() {
-        return Paper.builder()
-                .teacherId(teacherId)
-                .id(new PaperId(id))
-                .blankQuizzes(new ObjectMapper().convertValue(blankQuizzes, List.class))
-                .build();
+        try {
+            return Paper.builder()
+                    .teacherId(teacherId)
+                    .id(new PaperId(id))
+                    .blankQuizzes(Arrays.asList(new ObjectMapper().readValue(blankQuizzes, Paper.BlankQuiz[].class)))
+                    .build();
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 

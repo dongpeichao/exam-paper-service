@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,5 +32,14 @@ public class PaperApplicationService {
         return command.getQuizzes().stream()
                 .map(quiz -> new Paper.BlankQuiz(quiz.getQuizId(), quiz.getScore()))
                 .collect(Collectors.toList());
+    }
+
+    public QueryPaperDTO query(String paperId) {
+        return toQueryPaperDTO(paperRepository.findById(paperId));
+    }
+
+    private QueryPaperDTO toQueryPaperDTO(Optional<Paper> paperOptional) {
+        return paperOptional.map(paper-> new QueryPaperDTO(paper.getId().getValue(), paper.getTeacherId(),
+                paper.getBlankQuizzes())).orElse(null);
     }
 }

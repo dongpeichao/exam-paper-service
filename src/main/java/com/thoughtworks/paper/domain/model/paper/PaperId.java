@@ -15,6 +15,11 @@ class PaperId extends AbstractId {
     }
 
     public static PaperId generate() {
-        return new PaperId("paper-" + UUID.randomUUID().toString());
+        return new PaperId(UUID.randomUUID().toString());
+    }
+
+    @Override
+    public String toString() {
+        return this.getValue();
     }
 }
